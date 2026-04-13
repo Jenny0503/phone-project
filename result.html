@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>分析結果頁</title>
+</head>
+<body>
+
+<h2>分析結果</h2>
+
+<div id="result">載入中...</div>
+
+<script>
+window.onload = function() {
+
+    // 📥 1. 抓網址資料
+    const params = new URLSearchParams(window.location.search);
+
+    const time = params.get("time");
+    const study = params.get("study");
+    const use = params.get("use");
+
+    // 🧠 2. 準備變數（一定要先宣告）
+    let text = "";
+    let risk = "";
+    let advice = "";
+
+    // 📊 3. 風險判斷（只看時間）
+    if (time === "3小時以下") {
+        risk = "低風險";
+    } 
+    else if (time === "3-5小時") {
+        risk = "低風險";
+    } 
+    else if (time === "5-7小時") {
+        risk = "中風險";
+    } 
+    else if (time === "7-10小時") {
+        risk = "高風險";
+    } 
+    else if (time === "10小時以上") {
+        risk = "高風險";
+    }
+    else {
+        risk = "未知";
+    }
+
+    // 💡 4. 建議系統
+    if (risk === "低風險") {
+        advice = "👍 維持良好的使用習慣";
+    } 
+    else if (risk === "中風險") {
+        advice = "⚠️ 建議規劃使用時間，增加學習用途比例";
+    } 
+    else if (risk === "高風險") {
+        advice = "🚨 建議減少每日使用時間，設定時間限制，避免睡前使用手機";
+    } 
+    else {
+        advice = "請從輸入頁進入";
+    }
+
+    // 🖨️ 5. 顯示結果
+    text += "📱 時間：" + time + "\n";
+    text += "📘 學習：" + study + "\n";
+    text += "🎯 用途：" + use + "\n\n";
+
+    text += "📊 風險：" + risk + "\n";
+    text += "💡 建議：" + advice;
+
+    document.getElementById("result").innerText = text;
+}
+</script>
+
+</body>
+</html>
